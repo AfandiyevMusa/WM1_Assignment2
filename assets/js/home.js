@@ -4,7 +4,7 @@
     const prevBtn = document.getElementById("prevBtn");
     const nextBtn = document.getElementById("nextBtn");
     const productsPerPage = 6;
-    const products = Array.from(productsContainer.querySelectorAll('.card'));
+    const products = Array.from(productsContainer.querySelectorAll('.card-link'));
     let currentPage = 1;
 
     // Calculate the number of pages
