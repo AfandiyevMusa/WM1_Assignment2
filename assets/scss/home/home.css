@@ -15,6 +15,7 @@ body main #all .tools .search {
 }
 
 body main #all .products a {
+  text-decoration: none;
   width: auto;
   height: auto;
   padding-bottom: 50px;

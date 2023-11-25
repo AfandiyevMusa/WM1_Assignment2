@@ -47,7 +47,7 @@ fetch(apiUrl)
 
             // Get the randomly selected image URL
             const selectedImageUrl = product.images[randomIndex];
-            
+
             // Create the structure for the product card (customize as needed)
             insideOfCard.innerHTML = `
             <a data-id="${product.id}">
@@ -66,7 +66,7 @@ fetch(apiUrl)
                     <p class="mini-detail brand-part">${product.brand}</p>
                     <span class='title-part'>${product.title}</span>
                     <div class='costs'>
-                        <p class="discounted-cost">$ ${(product.price * (100-product.discountPercentage) / 100).toFixed(2)}</p>
+                        <p class="discounted-cost">$ ${(product.price * (100 - product.discountPercentage) / 100).toFixed(2)}</p>
                         <p class="cost">$ ${product.price}</p>
                     </div>
                     <div class="stars">
@@ -123,7 +123,7 @@ fetch(apiUrl)
             }
         });
 
-        prevBtn.addEventListener("click", function () {
+        prevBtn.addEventListener("click", function (e) {
             e.preventDefault();
             if (currentPage > 1) {
                 showPage(currentPage - 1);
@@ -229,6 +229,40 @@ fetch(apiUrl)
                 nextBtn.classList.remove("disabled");
             }
         }
+
+        // Add an event listener to each product card
+        allProducts.forEach(product => {
+            product.addEventListener('click', function (event) {
+                event.preventDefault();
+                // Extract product data
+
+                console.log(product)
+                const productId = product.getAttribute('data-id');
+                const productTitle = product.querySelector('.text-part .title-part').textContent;
+                const productBrand = product.querySelector('.text-part .brand-part').textContent;
+                const productCost = product.querySelector('.text-part .cost').textContent;
+                // console.log(productId);
+                // console.log(productTitle);
+                // console.log(productBrand);
+                // console.log(productCost);
+
+                // Store product data in localStorage or pass it as query parameters to the next page
+                // You can choose the method that fits your application structure
+
+                // Example using localStorage
+                const productData = {
+                    id: productId,
+                    title: productTitle,
+                    brand: productBrand,
+                    cost: productCost
+                };
+                localStorage.setItem('selectedProduct', JSON.stringify(productData));
+
+                // Redirect to the product detail page
+                // window.location.href = 'detail.html';
+            });
+        });
+
     })
     .catch(error => {
         console.error('Fetch error happened:', error);
