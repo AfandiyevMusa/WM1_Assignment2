@@ -54,6 +54,10 @@ body main #all .products a .card .img-part .images {
           align-items: center;
 }
 
+body main #all .products a .card .img-part .images img {
+  width: 350px;
+}
+
 body main #all .products a .card .img-part .heart {
   background-color: #fcb941;
   position: absolute;
