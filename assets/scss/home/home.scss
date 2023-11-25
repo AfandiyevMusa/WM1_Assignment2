@@ -3,6 +3,12 @@ body {
   main {
     #all {
       margin-top: 120px;
+      .tools{
+        margin-bottom: 50px;
+        .search{
+          margin-bottom: 25px;
+        }
+      }
       .products {
         a {
           width: auto;
@@ -36,6 +42,7 @@ body {
                 align-items: center;
                 img{
                   width: 350px;
+                  height: 450px;
                 }
               }
               .heart {
@@ -99,10 +106,20 @@ body {
               span:hover {
                 color: #fcb941;
               }
-              .cost {
-                font-size: 17px;
-                color: #fcb941;
-                margin-bottom: -3px;
+              .costs{
+                display: flex;
+                justify-content: space-evenly;
+                .discounted-cost{
+                  font-size: 17px;
+                  color: #fcb941;
+                  margin-bottom: -3px;
+                }
+                .cost {
+                  font-size: 22px;
+                  color: red;
+                  text-decoration: line-through;
+                  margin-bottom: -6px;
+                }
               }
               .stars {
                 display: inline-block;
@@ -120,25 +137,5 @@ body {
         }
       }
     }
-    // #pagination{
-    //   .container{
-    //     ul{
-    //       #prevBtn{
-
-    //       }
-    //       #links{
-    //         .page-link{
-
-    //         }
-    //         .active{
-    //           color: #E4A010 !important;
-    //         }
-    //       }
-    //       #nextBtn{
-
-    //       }
-    //     }
-    //   }
-    // }
   }
 }

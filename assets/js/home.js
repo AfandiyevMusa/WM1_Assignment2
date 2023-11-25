@@ -30,7 +30,7 @@ fetch(apiUrl)
             categories.forEach(category => {
                 const option = document.createElement('option');
                 option.value = category;
-                option.textContent = category === 'all' ? 'All Categories' : category;
+                option.textContent = category === 'all' ? 'All Brands' : category;
                 filterSelect.appendChild(option);
             });
         }
@@ -43,32 +43,42 @@ fetch(apiUrl)
             const insideOfCard = document.createElement('div');
             insideOfCard.classList.add('col-4', 'card');
 
+            const randomIndex = Math.floor(Math.random() * product.images.length);
+
+            // Get the randomly selected image URL
+            const selectedImageUrl = product.images[randomIndex];
+            
             // Create the structure for the product card (customize as needed)
             insideOfCard.innerHTML = `
-            <div class="img-part">
-                <p class="discount">-${product.discountPercentage}%</p>
-                <div class="images">
-                    <img src="./assets/imgs/featured1-hover.jpeg" class="open-hovered" alt="">
+            <a data-id="${product.id}">
+                <div class="img-part">
+                    <p class="discount">-${product.discountPercentage}%</p>
+                    <div class="images">
+                        <img src="${selectedImageUrl}" class="open-hovered" alt="">
+                    </div>
+                    <i class="fa-regular fa-heart open-hovered heart"></i>
+                    <div class="options-part">
+                        <i class="fa-solid fa-cart-arrow-down addToCart"></i>
+                        <span>Add to cart</span>
+                    </div>
                 </div>
-                <i class="fa-regular fa-heart open-hovered heart"></i>
-                <div class="options-part">
-                    <i class="fa-solid fa-cart-arrow-down addToCart"></i>
-                    <span>Add to cart</span>
+                <div class="text-part">
+                    <p class="mini-detail brand-part">${product.brand}</p>
+                    <span class='title-part'>${product.title}</span>
+                    <div class='costs'>
+                        <p class="discounted-cost">$ ${(product.price * (100-product.discountPercentage) / 100).toFixed(2)}</p>
+                        <p class="cost">$ ${product.price}</p>
+                    </div>
+                    <div class="stars">
+                        <i class="fa-solid fa-star" style="color: #fcb941;"></i>
+                        <i class="fa-solid fa-star" style="color: #fcb941;"></i>
+                        <i class="fa-solid fa-star" style="color: #fcb941;"></i>
+                        <i class="fa-solid fa-star" style="color: #fcb941;"></i>
+                        <i class="fa-solid fa-star" style="color: #cccccc;"></i>
+                    </div>
+                    <p class="reviews">( 2 Reviews )</p>
                 </div>
-            </div>
-            <div class="text-part">
-                <p class="mini-detail brand-part">${product.brand}</p>
-                <span class='title-part'>${product.title}</span>
-                <p class="cost">$ ${product.price}</p>
-                <div class="stars">
-                    <i class="fa-solid fa-star" style="color: #fcb941;"></i>
-                    <i class="fa-solid fa-star" style="color: #fcb941;"></i>
-                    <i class="fa-solid fa-star" style="color: #fcb941;"></i>
-                    <i class="fa-solid fa-star" style="color: #fcb941;"></i>
-                    <i class="fa-solid fa-star" style="color: #cccccc;"></i>
-                </div>
-                <p class="reviews">( 2 Reviews )</p>
-            </div>
+            </a>
             `;
 
             // Append the product card to the row
@@ -106,13 +116,15 @@ fetch(apiUrl)
         showPage(1);
 
         // Event listeners for Next and Previous buttons
-        nextBtn.addEventListener("click", function () {
+        nextBtn.addEventListener("click", function (e) {
+            e.preventDefault();
             if (currentPage < totalPages) {
                 showPage(currentPage + 1);
             }
         });
 
         prevBtn.addEventListener("click", function () {
+            e.preventDefault();
             if (currentPage > 1) {
                 showPage(currentPage - 1);
             }
@@ -166,7 +178,6 @@ fetch(apiUrl)
             updatePagination();
         }
 
-
         // Function to show a specific page
         function showPage(pageNumber) {
             // Hide all products
@@ -192,7 +203,7 @@ fetch(apiUrl)
             const pageLinks = document.querySelectorAll(".pagination .page-link");
             pageLinks.forEach((link, index) => {
                 link.parentNode.classList.remove("active");
-                if (index === activePage - 1) {
+                if (index === activePage) {
                     link.parentNode.classList.add("active");
                 }
             });
