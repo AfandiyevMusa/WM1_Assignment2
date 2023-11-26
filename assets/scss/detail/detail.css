@@ -1,4 +1,5 @@
 body {
+  background-color: #E4A010;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -12,7 +13,23 @@ body {
 }
 
 body main #product-info {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+          box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
   padding-top: 15px;
+  padding: 80px;
+  background-color: white;
+}
+
+body main #product-info .all .back {
+  position: relative;
+}
+
+body main #product-info .all .back a i {
+  color: #E4A010;
+  position: absolute;
+  left: -50px;
+  top: -50px;
+  font-size: 30px;
 }
 
 body main #product-info .all .left {
@@ -38,8 +55,8 @@ body main #product-info .all .left .left-p img {
   width: 120px;
   height: 120px;
   cursor: pointer;
-  -o-object-fit: cover;
-     object-fit: cover;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 body main #product-info .all .left .left-p .active {
@@ -74,6 +91,8 @@ body main #product-info .all .left .right-p .zoomArea img {
   width: 100%;
   height: 100%;
   cursor: move !important;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 body main #product-info .all .left .right-p i {
@@ -97,7 +116,7 @@ body main #product-info .all .left .right-p i {
 }
 
 body main #product-info .all .right {
-  margin-left: 20px;
+  margin-left: 80px;
 }
 
 body main #product-info .all .right .text {
@@ -398,6 +417,7 @@ body main #product-info .all .right .text .categories {
   display: -ms-flexbox;
   display: flex;
   padding-top: 10px;
+  margin-top: 20px;
   font-size: 17px;
   color: #9c9c9c;
 }
@@ -422,7 +442,7 @@ body main #product-info .all .right .text .share {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-top: -10px;
+  margin-top: 30px;
   gap: 10px;
 }
 

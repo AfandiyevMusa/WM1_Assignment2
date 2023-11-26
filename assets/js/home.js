@@ -37,12 +37,8 @@ fetch(apiUrl)
 
 
         products.forEach(product => {
-            // const productLink = document.createElement('a');
-            // productLink.classList.add('card-link');
-
             const insideOfCard = document.createElement('a');
             insideOfCard.classList.add('card-link');
-            // insideOfCard.setAttribute('href', './detail.html');
 
             const randomIndex = Math.floor(Math.random() * product.images.length);
 
@@ -83,9 +79,6 @@ fetch(apiUrl)
             `;
 
             // Append the product card to the row
-            // productLink.appendChild(insideOfCard);
-            // productRow.appendChild(productLink);
-            // productLink.appendChild(insideOfCard);
             productRow.appendChild(insideOfCard);
         });
 
@@ -239,9 +232,6 @@ fetch(apiUrl)
                 event.preventDefault();
                 // Extract product data
 
-                // console.log(product)
-                // const productId = product.getAttribute('data-id');
-                // const cardDiv = product.querySelector('.card');
                 const productId = product.querySelector('.card').getAttribute('data-id');
                 const productTitle = product.querySelector('.text-part .title-part').textContent;
                 const productBrand = product.querySelector('.text-part .brand-part').textContent;
@@ -253,24 +243,7 @@ fetch(apiUrl)
                 // const productDiscount = product.querySelector('.text-part .discount').textContent;
                 const productDiscountDetail = product.querySelector('.img-part .discount').textContent;
                 const productDiscount = productDiscountDetail.substring(1, productDiscountDetail.length - 1);
-                // console.log(productDiscount);
-                // console.log(productId);
-                // console.log(productTitle);
-                // console.log(productBrand);
-                // console.log(productCost);
 
-                // Store product data in localStorage or pass it as query parameters to the next page
-                // You can choose the method that fits your application structure
-
-                // Example using localStorage
-                // const productData = {
-                //     id: productId,
-                //     title: productTitle,
-                //     brand: productBrand,
-                //     cost: productCost,
-                //     discount: productDiscount,
-                //     image: productImage
-                // };
                 const productData = {
                     id: productId,
                     title: productTitle,
