@@ -37,11 +37,12 @@ fetch(apiUrl)
 
 
         products.forEach(product => {
-            const productLink = document.createElement('a');
-            productLink.classList.add('card-link');
+            // const productLink = document.createElement('a');
+            // productLink.classList.add('card-link');
 
-            const insideOfCard = document.createElement('div');
-            insideOfCard.classList.add('col-4', 'card');
+            const insideOfCard = document.createElement('a');
+            insideOfCard.classList.add('card-link');
+            // insideOfCard.setAttribute('href', './detail.html');
 
             const randomIndex = Math.floor(Math.random() * product.images.length);
 
@@ -50,7 +51,7 @@ fetch(apiUrl)
 
             // Create the structure for the product card (customize as needed)
             insideOfCard.innerHTML = `
-            <a data-id="${product.id}">
+            <div data-id="${product.id}" class='col-4 card'>
                 <div class="img-part">
                     <p class="discount">-${product.discountPercentage}%</p>
                     <div class="images">
@@ -78,12 +79,14 @@ fetch(apiUrl)
                     </div>
                     <p class="reviews">( 2 Reviews )</p>
                 </div>
-            </a>
+            </div>
             `;
 
             // Append the product card to the row
-            productLink.appendChild(insideOfCard);
-            productRow.appendChild(productLink);
+            // productLink.appendChild(insideOfCard);
+            // productRow.appendChild(productLink);
+            // productLink.appendChild(insideOfCard);
+            productRow.appendChild(insideOfCard);
         });
 
         // Initialize pagination and search
@@ -236,11 +239,21 @@ fetch(apiUrl)
                 event.preventDefault();
                 // Extract product data
 
-                console.log(product)
-                const productId = product.getAttribute('data-id');
+                // console.log(product)
+                // const productId = product.getAttribute('data-id');
+                // const cardDiv = product.querySelector('.card');
+                const productId = product.querySelector('.card').getAttribute('data-id');
                 const productTitle = product.querySelector('.text-part .title-part').textContent;
                 const productBrand = product.querySelector('.text-part .brand-part').textContent;
-                const productCost = product.querySelector('.text-part .cost').textContent;
+
+                const productCostRaw = product.querySelector('.text-part .cost').textContent;
+                const productCost = productCostRaw.substring(2, productCostRaw.length);
+                const productImage = product.querySelector('.img-part .images img').getAttribute('src');
+                                
+                // const productDiscount = product.querySelector('.text-part .discount').textContent;
+                const productDiscountDetail = product.querySelector('.img-part .discount').textContent;
+                const productDiscount = productDiscountDetail.substring(1, productDiscountDetail.length - 1);
+                // console.log(productDiscount);
                 // console.log(productId);
                 // console.log(productTitle);
                 // console.log(productBrand);
@@ -250,16 +263,27 @@ fetch(apiUrl)
                 // You can choose the method that fits your application structure
 
                 // Example using localStorage
+                // const productData = {
+                //     id: productId,
+                //     title: productTitle,
+                //     brand: productBrand,
+                //     cost: productCost,
+                //     discount: productDiscount,
+                //     image: productImage
+                // };
                 const productData = {
                     id: productId,
                     title: productTitle,
                     brand: productBrand,
-                    cost: productCost
+                    cost: productCost,
+                    discount: productDiscount,
+                    image: productImage
                 };
+                console.log(productData);
                 localStorage.setItem('selectedProduct', JSON.stringify(productData));
 
                 // Redirect to the product detail page
-                // window.location.href = 'detail.html';
+                window.location.href = 'detail.html';
             });
         });
 
