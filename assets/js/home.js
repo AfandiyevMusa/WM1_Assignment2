@@ -41,16 +41,14 @@ fetch(apiUrl)
             insideOfCard.classList.add('card-link');
 
             const randomIndex = Math.floor(Math.random() * product.images.length);
-
-            // Get the randomly selected image URL
             const selectedImageUrl = product.images[randomIndex];
-
-            // Create the structure for the product card (customize as needed)
+            
             insideOfCard.innerHTML = `
             <div data-id="${product.id}" class='col-4 card'>
                 <div class="img-part">
                     <p class="discount">-${product.discountPercentage}%</p>
                     <div class="images">
+                        <img style='display: none; ' src="${product.images}" class="all-images" alt="">
                         <img src="${selectedImageUrl}" class="open-hovered" alt="">
                     </div>
                     <i class="fa-regular fa-heart open-hovered heart"></i>
@@ -75,7 +73,10 @@ fetch(apiUrl)
                         <i class="fa-solid fa-star" style="color: #cccccc;"></i>
                     </div>
                     <p class="stock">Stock: ${product.stock}</p>
-                    <h6 class="category-part">Category: ${product.category}</h6>
+                    <div class='category'>
+                        <h6 class="category-name">Category: </h6>
+                        <h6 class="category-part">${product.category}</h6>
+                    </div>
                 </div>
             </div>
             `;
@@ -241,8 +242,10 @@ fetch(apiUrl)
                 const productCostRaw = product.querySelector('.text-part .cost').textContent;
                 const productCost = productCostRaw.substring(2, productCostRaw.length);
                 const productImage = product.querySelector('.img-part .images img').getAttribute('src');
-                                
-                // const productDiscount = product.querySelector('.text-part .discount').textContent;
+                
+                const productAllImages = product.querySelector('.all-images').getAttribute('src');
+                // console.log(productAllImages);
+            
                 const productDiscountDetail = product.querySelector('.img-part .discount').textContent;
                 const productDiscount = productDiscountDetail.substring(1, productDiscountDetail.length - 1);
                 
@@ -261,6 +264,7 @@ fetch(apiUrl)
                     cost: productCost,
                     discount: productDiscount,
                     image: productImage,
+                    allImages: productAllImages,
                     stock: productStock,
                     description: description,
                     category: productCategory

@@ -6,6 +6,12 @@ const productAll = document.querySelector('#product-info .container .all');
 const cardRow = document.createElement('div');
 cardRow.classList.add('row');
 
+const allImagesArray = productInfo.allImages.split(',');
+
+const imagesHTML = allImagesArray.map((image, index) => `
+    <img src="${image}" alt="" class="${index === 0 ? 'active first' : ''}">
+`).join('');
+
 cardRow.innerHTML = `
     <div class="col-sm-12 col-md-6 col-lg-6">
         <div class="back">
@@ -15,11 +21,11 @@ cardRow.innerHTML = `
         </div>
         <div class="left">
             <div class="left-p order-last">
-                <img src="${productInfo.image}" alt="" class="active first">
+                ${imagesHTML}
             </div>
             <div class="right-p order-lg-last">
                 <div class="zoomArea">
-                    <img id="NZoomImg" data-NZoomscale="1.5" src="${productInfo.image}"
+                    <img id="NZoomImg" data-NZoomscale="1.5" src="${allImagesArray[0]}"
                         alt="Product Image">
                 </div>
             </div>

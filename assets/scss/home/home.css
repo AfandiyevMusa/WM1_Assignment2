@@ -184,9 +184,21 @@ body main #all .products a .card .text-part .stock {
   padding-left: 20px;
 }
 
-body main #all .products a .card .text-part .category-part {
+body main #all .products a .card .text-part .category {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+body main #all .products a .card .text-part .category .category-name {
   color: #E4A010;
   margin-top: -10px;
+}
+
+body main #all .products a .card .text-part .category .category-part {
+  color: #E4A010;
+  margin-top: -10px;
+  padding-left: 10px;
 }
 
 body main #all .products a .card:hover {

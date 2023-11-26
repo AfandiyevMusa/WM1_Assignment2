@@ -130,9 +130,17 @@ body {
                 display: inline-block;
                 padding-left: 20px;
               }
-              .category-part{
-                color: #E4A010;
-                margin-top: -10px;
+              .category{
+                display: flex;
+                .category-name{
+                  color: #E4A010;
+                  margin-top: -10px;
+                }
+                .category-part{
+                  color: #E4A010;
+                  margin-top: -10px;
+                  padding-left: 10px;
+                }
               }
             }
           }
