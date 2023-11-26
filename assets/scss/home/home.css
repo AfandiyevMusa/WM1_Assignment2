@@ -178,9 +178,15 @@ body main #all .products a .card .text-part .stars {
   display: inline-block;
 }
 
-body main #all .products a .card .text-part .reviews {
-  color: #d7d7d7;
+body main #all .products a .card .text-part .stock {
+  color: #E4A010;
   display: inline-block;
+  padding-left: 20px;
+}
+
+body main #all .products a .card .text-part .category-part {
+  color: #E4A010;
+  margin-top: -10px;
 }
 
 body main #all .products a .card:hover {

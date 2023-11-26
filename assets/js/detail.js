@@ -37,12 +37,12 @@ cardRow.innerHTML = `
                     <i class="fa-solid fa-star" style="color: #cc9967;"></i>
                     <i class="fa-solid fa-star" style="color: #cccccc;"></i>
                 </div>
-                <p class="reviews">( 5 Reviews )</p>
+                <p class="stock">Stock: ${productInfo.stock}</p>
                 <div class="costs">
                     <h3>$ ${(productInfo.cost * (100 - productInfo.discount) / 100).toFixed(2)}</h3>
                     <h2>$ ${productInfo.cost}</h2>
                 </div>
-                <span></span>
+                <span>${productInfo.description}</span>
                 <div class="color">
                     <h6>Color: </h6>
                     <div class="circle">
@@ -71,6 +71,10 @@ cardRow.innerHTML = `
                 <div class="categories">
                     <p>Brand: </p>
                     <span>${productInfo.brand} </span>
+                </div>
+                <div class="categories">
+                    <p>Categories: </p>
+                    <span>${productInfo.category} </span>
                 </div>
                 <div class="share">
                     <p>Share: </p>

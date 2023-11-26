@@ -17,9 +17,9 @@ fetch(apiUrl)
         function getUniqueCategories(products) {
             const categories = new Set();
             products.forEach(product => {
-                categories.add(product.brand);
+                categories.add(product.category);
             });
-            return ['all', ...categories]; // Add 'all' as the default option
+            return ['all', ...categories];
         }
 
         // Call the populateFilterDropdown function
@@ -30,7 +30,7 @@ fetch(apiUrl)
             categories.forEach(category => {
                 const option = document.createElement('option');
                 option.value = category;
-                option.textContent = category === 'all' ? 'All Brands' : category;
+                option.textContent = category === 'all' ? 'All Categories' : category;
                 filterSelect.appendChild(option);
             });
         }
@@ -66,6 +66,7 @@ fetch(apiUrl)
                         <p class="discounted-cost">$ ${(product.price * (100 - product.discountPercentage) / 100).toFixed(2)}</p>
                         <p class="cost">$ ${product.price}</p>
                     </div>
+                    <p style="display: none;" class="mini-detail product-desc">${product.description}</p>
                     <div class="stars">
                         <i class="fa-solid fa-star" style="color: #fcb941;"></i>
                         <i class="fa-solid fa-star" style="color: #fcb941;"></i>
@@ -73,7 +74,8 @@ fetch(apiUrl)
                         <i class="fa-solid fa-star" style="color: #fcb941;"></i>
                         <i class="fa-solid fa-star" style="color: #cccccc;"></i>
                     </div>
-                    <p class="reviews">( 2 Reviews )</p>
+                    <p class="stock">Stock: ${product.stock}</p>
+                    <h6 class="category-part">Category: ${product.category}</h6>
                 </div>
             </div>
             `;
@@ -160,7 +162,7 @@ fetch(apiUrl)
         // Function to filter products based on selected category
         function filterProductsByCategory(selectedCategory) {
             allProducts.forEach(product => {
-                const categoryElement = product.querySelector('.text-part .brand-part');
+                const categoryElement = product.querySelector('.text-part .category-part');
                 const category = categoryElement.textContent.trim();
                 if (selectedCategory === 'all' || category === selectedCategory) {
                     product.style.display = "block";
@@ -243,6 +245,14 @@ fetch(apiUrl)
                 // const productDiscount = product.querySelector('.text-part .discount').textContent;
                 const productDiscountDetail = product.querySelector('.img-part .discount').textContent;
                 const productDiscount = productDiscountDetail.substring(1, productDiscountDetail.length - 1);
+                
+                const stock = product.querySelector('.stock').textContent;
+                const productStock = stock.substring(7, stock.length);
+
+                const category = product.querySelector('.category-part').textContent;
+                const productCategory = category.substring(9, category.length);
+
+                const description = product.querySelector('.product-desc').textContent;
 
                 const productData = {
                     id: productId,
@@ -250,8 +260,12 @@ fetch(apiUrl)
                     brand: productBrand,
                     cost: productCost,
                     discount: productDiscount,
-                    image: productImage
+                    image: productImage,
+                    stock: productStock,
+                    description: description,
+                    category: productCategory
                 };
+
                 console.log(productData);
                 localStorage.setItem('selectedProduct', JSON.stringify(productData));
 
