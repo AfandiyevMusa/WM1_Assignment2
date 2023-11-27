@@ -42,7 +42,7 @@ fetch(apiUrl)
 
             const randomIndex = Math.floor(Math.random() * product.images.length);
             const selectedImageUrl = product.images[randomIndex];
-            
+
             insideOfCard.innerHTML = `
             <div data-id="${product.id}" class='col-4 card'>
                 <div class="img-part">
@@ -130,10 +130,12 @@ fetch(apiUrl)
         });
 
         // Event listener for search input
+        // Event listener for search input
         const searchInput = document.getElementById('search');
         searchInput.addEventListener('keyup', function () {
             const searchTerm = searchInput.value.trim().toLowerCase();
-            filterProducts(searchTerm);
+            const selectedCategory = filterSelect.value; // Get the selected category
+            filterProducts(searchTerm, selectedCategory);
         });
 
         // Event listener for category filter
@@ -143,12 +145,19 @@ fetch(apiUrl)
         });
 
 
-        // Function to filter products based on search term
-        function filterProducts(searchTerm) {
+        // Function to filter products based on search term and selected category
+        function filterProducts(searchTerm, selectedCategory) {
             allProducts.forEach(product => {
                 const titleElement = product.querySelector('.text-part .title-part');
                 const title = titleElement.textContent.toLowerCase();
-                if (title.includes(searchTerm)) {
+                const categoryElement = product.querySelector('.text-part .category-part');
+                const category = categoryElement.textContent.trim().toLowerCase();
+
+                // Check if the title contains the search term and the category matches the selected category
+                const titleMatches = title.includes(searchTerm) || searchTerm === '';
+                const categoryMatches = selectedCategory === 'all' || category === selectedCategory;
+
+                if (titleMatches && categoryMatches) {
                     product.style.display = "block";
                 } else {
                     product.style.display = "none";
@@ -159,6 +168,8 @@ fetch(apiUrl)
             currentPage = 1;
             updatePagination();
         }
+
+
 
         // Function to filter products based on selected category
         function filterProductsByCategory(selectedCategory) {
@@ -242,13 +253,13 @@ fetch(apiUrl)
                 const productCostRaw = product.querySelector('.text-part .cost').textContent;
                 const productCost = productCostRaw.substring(2, productCostRaw.length);
                 const productImage = product.querySelector('.img-part .images img').getAttribute('src');
-                
+
                 const productAllImages = product.querySelector('.all-images').getAttribute('src');
                 // console.log(productAllImages);
-            
+
                 const productDiscountDetail = product.querySelector('.img-part .discount').textContent;
                 const productDiscount = productDiscountDetail.substring(1, productDiscountDetail.length - 1);
-                
+
                 const stock = product.querySelector('.stock').textContent;
                 const productStock = stock.substring(7, stock.length);
 
@@ -277,7 +288,6 @@ fetch(apiUrl)
                 window.location.href = 'detail.html';
             });
         });
-
     })
     .catch(error => {
         console.error('Fetch error happened:', error);
