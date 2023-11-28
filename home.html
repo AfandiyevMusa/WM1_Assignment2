@@ -35,7 +35,43 @@
                 </div>
                 <div class="products">
                     <div class="row">
-                        <!-- <a data-id="${product.id}" href="./detail.html"> -->
+                        <!-- <a class="card-link">
+                            <div data-id="${product.id}" class='col-4 card'>
+                                <div class="img-part">
+                                    <p class="discount">-${product.discountPercentage}%</p>
+                                    <div class="images">
+                                        <img style='display: none; ' src="${product.images}" class="all-images" alt="">
+                                        <img src="${selectedImageUrl}" class="open-hovered" alt="">
+                                    </div>
+                                    <i class="fa-regular fa-heart open-hovered heart"></i>
+                                    <div class="options-part">
+                                        <i class="fa-solid fa-cart-arrow-down addToCart"></i>
+                                        <span>Add to cart</span>
+                                    </div>
+                                </div>
+                                <div class="text-part">
+                                    <p class="mini-detail brand-part">${product.brand}</p>
+                                    <span class='title-part'>${product.title}</span>
+                                    <div class='costs'>
+                                        <p class="discounted-cost">$ ${(product.price * (100 - product.discountPercentage) / 100).toFixed(2)}</p>
+                                        <p class="cost">$ ${product.price}</p>
+                                    </div>
+                                    <p style="display: none;" class="mini-detail product-desc">${product.description}</p>
+                                    <div class="stars">
+                                        <i class="fa-solid fa-star" style="color: #fcb941;"></i>
+                                        <i class="fa-solid fa-star" style="color: #fcb941;"></i>
+                                        <i class="fa-solid fa-star" style="color: #fcb941;"></i>
+                                        <i class="fa-solid fa-star" style="color: #fcb941;"></i>
+                                        <i class="fa-solid fa-star" style="color: #cccccc;"></i>
+                                    </div>
+                                    <p class="stock">Stock: ${product.stock}</p>
+                                    <div class='category'>
+                                        <h6 class="category-name">Category: </h6>
+                                        <h6 class="category-part">${product.category}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </a> -->
                     </div>
                 </div>
             </div>
