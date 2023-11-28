@@ -75,9 +75,6 @@ fetch(apiUrl)
 
             productRow.appendChild(insideOfCard);
         });
-<<<<<<< HEAD
-        
-=======
 
         // Pagination
         const productsContainer = document.querySelector("#all .products .row");
@@ -122,7 +119,6 @@ fetch(apiUrl)
             }
         });
 
->>>>>>> 8c271fa (done)
         // Search area
         const searchInput = document.getElementById('search');
         searchInput.addEventListener('keyup', function () {
@@ -175,8 +171,6 @@ fetch(apiUrl)
             updatePagination();
         }
 
-<<<<<<< HEAD
-=======
         // Showing specific page
         function showPage(pageNumber) {
             allProducts.forEach(product => {
@@ -221,7 +215,6 @@ fetch(apiUrl)
             }
         }
 
->>>>>>> 8c271fa (done)
         // Sending datas to local storage for product detail
         allProducts.forEach(product => {
             product.addEventListener('click', function (event) {
@@ -267,93 +260,6 @@ fetch(apiUrl)
                 window.location.href = 'detail.html';
             });
         });
-
-        // Pagination
-        const productsContainer = document.querySelector("#all .products .row");
-        const paginationContainer = document.querySelector(".pagination ul");
-        const prevBtn = document.getElementById("prevBtn");
-        const nextBtn = document.getElementById("nextBtn");
-        const productsPerPage = 6;
-        let allProducts = Array.from(productsContainer.querySelectorAll('.card-link'));
-        let currentPage = 1;
-
-        const totalPages = Math.ceil(allProducts.length / productsPerPage);
-
-        // Creating pagination buttons
-        for (let i = 1; i <= totalPages; i++) {
-            const pageItem = document.createElement("li");
-            pageItem.classList.add("page-item");
-            const pageLink = document.createElement("a");
-            pageLink.classList.add("page-link");
-            pageLink.textContent = i;
-            pageLink.addEventListener("click", function () {
-                showPage(i);
-            });
-            pageItem.appendChild(pageLink);
-            paginationContainer.insertBefore(pageItem, nextBtn);
-        }
-
-        showPage(1);
-
-        // Next button functionality
-        nextBtn.addEventListener("click", function (e) {
-            e.preventDefault();
-            if (currentPage < totalPages) {
-                showPage(currentPage + 1);
-            }
-        });
-
-        // Previous button functionality
-        prevBtn.addEventListener("click", function (e) {
-            e.preventDefault();
-            if (currentPage > 1) {
-                showPage(currentPage - 1);
-            }
-        });
-
-        // Showing specific page
-        function showPage(pageNumber) {
-            allProducts.forEach(product => {
-                product.style.display = "none";
-            });
-
-            const startIndex = (pageNumber - 1) * productsPerPage;
-            const endIndex = startIndex + productsPerPage;
-
-            for (let i = startIndex; i < endIndex && i < allProducts.length; i++) {
-                allProducts[i].style.display = "block";
-            }
-
-            updateActivePage(pageNumber);
-        }
-
-        function updateActivePage(activePage) {
-            const pageLinks = document.querySelectorAll(".pagination .page-link");
-            pageLinks.forEach((link, index) => {
-                link.parentNode.classList.remove("active");
-                if (index === activePage) {
-                    link.parentNode.classList.add("active");
-                }
-            });
-
-            currentPage = activePage;
-
-            updateButtonStates();
-        }
-
-        function updateButtonStates() {
-            if (currentPage === 1) {
-                prevBtn.classList.add("disabled");
-            } else {
-                prevBtn.classList.remove("disabled");
-            }
-
-            if (currentPage === totalPages) {
-                nextBtn.classList.add("disabled");
-            } else {
-                nextBtn.classList.remove("disabled");
-            }
-        }
     })
     .catch(error => {
         console.error('Fetch error happened:', error);
