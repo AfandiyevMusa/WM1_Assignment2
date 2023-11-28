@@ -237,7 +237,6 @@ fetch(apiUrl)
                 const productStock = stock.substring(7, stock.length);
 
                 const category = product.querySelector('.category-part').textContent;
-                const productCategory = category.substring(9, category.length);
 
                 const description = product.querySelector('.product-desc').textContent;
 
@@ -251,7 +250,7 @@ fetch(apiUrl)
                     allImages: productAllImages,
                     stock: productStock,
                     description: description,
-                    category: productCategory
+                    category: category
                 };
 
                 console.log(productData);
