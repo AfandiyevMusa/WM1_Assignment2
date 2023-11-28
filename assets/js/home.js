@@ -1,19 +1,14 @@
-// API fetch
 const apiUrl = 'https://dummyjson.com/products';
 const productRow = document.getElementsByClassName('row')[0]; // Use [0] to get the first element
 const filterSelect = document.getElementById('category');
 
-// Fetch data from the API
 fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
-        // Iterate over each product and create HTML elements
         const products = data.products;
 
-        // Fetch unique product categories
         const categories = getUniqueCategories(products);
 
-        // Function to fetch unique product categories
         function getUniqueCategories(products) {
             const categories = new Set();
             products.forEach(product => {
@@ -22,10 +17,8 @@ fetch(apiUrl)
             return ['all', ...categories];
         }
 
-        // Call the populateFilterDropdown function
         populateFilterDropdown(categories);
 
-        // Function to populate filter dropdown with categories
         function populateFilterDropdown(categories) {
             categories.forEach(category => {
                 const option = document.createElement('option');
@@ -34,7 +27,6 @@ fetch(apiUrl)
                 filterSelect.appendChild(option);
             });
         }
-
 
         products.forEach(product => {
             const insideOfCard = document.createElement('a');
@@ -81,56 +73,10 @@ fetch(apiUrl)
             </div>
             `;
 
-            // Append the product card to the row
             productRow.appendChild(insideOfCard);
         });
-
-        // Initialize pagination and search
-        const productsContainer = document.querySelector("#all .products .row");
-        const paginationContainer = document.querySelector(".pagination ul");
-        const prevBtn = document.getElementById("prevBtn");
-        const nextBtn = document.getElementById("nextBtn");
-        const productsPerPage = 6;
-        let allProducts = Array.from(productsContainer.querySelectorAll('.card-link'));
-        let currentPage = 1;
-
-        // Calculate the number of pages
-        const totalPages = Math.ceil(allProducts.length / productsPerPage);
-
-        // Create pagination buttons
-        for (let i = 1; i <= totalPages; i++) {
-            const pageItem = document.createElement("li");
-            pageItem.classList.add("page-item");
-            const pageLink = document.createElement("a");
-            pageLink.classList.add("page-link");
-            pageLink.textContent = i;
-            pageLink.addEventListener("click", function () {
-                showPage(i);
-            });
-            pageItem.appendChild(pageLink);
-            paginationContainer.insertBefore(pageItem, nextBtn);
-        }
-
-        // Show the first page by default
-        showPage(1);
-
-        // Event listeners for Next and Previous buttons
-        nextBtn.addEventListener("click", function (e) {
-            e.preventDefault();
-            if (currentPage < totalPages) {
-                showPage(currentPage + 1);
-            }
-        });
-
-        prevBtn.addEventListener("click", function (e) {
-            e.preventDefault();
-            if (currentPage > 1) {
-                showPage(currentPage - 1);
-            }
-        });
-
-        // Event listener for search input
-        // Event listener for search input
+        
+        // Search area
         const searchInput = document.getElementById('search');
         searchInput.addEventListener('keyup', function () {
             const searchTerm = searchInput.value.trim().toLowerCase();
@@ -138,14 +84,7 @@ fetch(apiUrl)
             filterProducts(searchTerm, selectedCategory);
         });
 
-        // Event listener for category filter
-        filterSelect.addEventListener('change', function () {
-            const selectedCategory = filterSelect.value;
-            filterProductsByCategory(selectedCategory);
-        });
-
-
-        // Function to filter products based on search term and selected category
+        // Filter products based on search
         function filterProducts(searchTerm, selectedCategory) {
             allProducts.forEach(product => {
                 const titleElement = product.querySelector('.text-part .title-part');
@@ -153,7 +92,6 @@ fetch(apiUrl)
                 const categoryElement = product.querySelector('.text-part .category-part');
                 const category = categoryElement.textContent.trim().toLowerCase();
 
-                // Check if the title contains the search term and the category matches the selected category
                 const titleMatches = title.includes(searchTerm) || searchTerm === '';
                 const categoryMatches = selectedCategory === 'all' || category === selectedCategory;
 
@@ -164,14 +102,17 @@ fetch(apiUrl)
                 }
             });
 
-            // Reset pagination and show the first page
             currentPage = 1;
             updatePagination();
         }
 
+        // Category filter
+        filterSelect.addEventListener('change', function () {
+            const selectedCategory = filterSelect.value;
+            filterProductsByCategory(selectedCategory);
+        });
 
-
-        // Function to filter products based on selected category
+        // Filter products based on category that we selected
         function filterProductsByCategory(selectedCategory) {
             allProducts.forEach(product => {
                 const categoryElement = product.querySelector('.text-part .category-part');
@@ -183,68 +124,14 @@ fetch(apiUrl)
                 }
             });
 
-            // Reset pagination and show the first page
             currentPage = 1;
             updatePagination();
         }
 
-        // Function to show a specific page
-        function showPage(pageNumber) {
-            // Hide all products
-            allProducts.forEach(product => {
-                product.style.display = "none";
-            });
-
-            // Calculate the index range for the current page
-            const startIndex = (pageNumber - 1) * productsPerPage;
-            const endIndex = startIndex + productsPerPage;
-
-            // Display products for the current page
-            for (let i = startIndex; i < endIndex && i < allProducts.length; i++) {
-                allProducts[i].style.display = "block";
-            }
-
-            // Update active state in pagination
-            updateActivePage(pageNumber);
-        }
-
-        // Function to update active state in pagination
-        function updateActivePage(activePage) {
-            const pageLinks = document.querySelectorAll(".pagination .page-link");
-            pageLinks.forEach((link, index) => {
-                link.parentNode.classList.remove("active");
-                if (index === activePage) {
-                    link.parentNode.classList.add("active");
-                }
-            });
-
-            // Update current page
-            currentPage = activePage;
-
-            // Update Next and Previous button states
-            updateButtonStates();
-        }
-
-        // Function to update Next and Previous button states
-        function updateButtonStates() {
-            if (currentPage === 1) {
-                prevBtn.classList.add("disabled");
-            } else {
-                prevBtn.classList.remove("disabled");
-            }
-
-            if (currentPage === totalPages) {
-                nextBtn.classList.add("disabled");
-            } else {
-                nextBtn.classList.remove("disabled");
-            }
-        }
-
-        // Add an event listener to each product card
+        // Sending datas to local storage for product detail
         allProducts.forEach(product => {
             product.addEventListener('click', function (event) {
                 event.preventDefault();
-                // Extract product data
 
                 const productId = product.querySelector('.card').getAttribute('data-id');
                 const productTitle = product.querySelector('.text-part .title-part').textContent;
@@ -255,7 +142,6 @@ fetch(apiUrl)
                 const productImage = product.querySelector('.img-part .images img').getAttribute('src');
 
                 const productAllImages = product.querySelector('.all-images').getAttribute('src');
-                // console.log(productAllImages);
 
                 const productDiscountDetail = product.querySelector('.img-part .discount').textContent;
                 const productDiscount = productDiscountDetail.substring(1, productDiscountDetail.length - 1);
@@ -284,10 +170,96 @@ fetch(apiUrl)
                 console.log(productData);
                 localStorage.setItem('selectedProduct', JSON.stringify(productData));
 
-                // Redirect to the product detail page
                 window.location.href = 'detail.html';
             });
         });
+
+        // Pagination
+        const productsContainer = document.querySelector("#all .products .row");
+        const paginationContainer = document.querySelector(".pagination ul");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+        const productsPerPage = 6;
+        let allProducts = Array.from(productsContainer.querySelectorAll('.card-link'));
+        let currentPage = 1;
+
+        const totalPages = Math.ceil(allProducts.length / productsPerPage);
+
+        // Creating pagination buttons
+        for (let i = 1; i <= totalPages; i++) {
+            const pageItem = document.createElement("li");
+            pageItem.classList.add("page-item");
+            const pageLink = document.createElement("a");
+            pageLink.classList.add("page-link");
+            pageLink.textContent = i;
+            pageLink.addEventListener("click", function () {
+                showPage(i);
+            });
+            pageItem.appendChild(pageLink);
+            paginationContainer.insertBefore(pageItem, nextBtn);
+        }
+
+        showPage(1);
+
+        // Next button functionality
+        nextBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            if (currentPage < totalPages) {
+                showPage(currentPage + 1);
+            }
+        });
+
+        // Previous button functionality
+        prevBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+            }
+        });
+
+        // Showing specific page
+        function showPage(pageNumber) {
+            allProducts.forEach(product => {
+                product.style.display = "none";
+            });
+
+            const startIndex = (pageNumber - 1) * productsPerPage;
+            const endIndex = startIndex + productsPerPage;
+
+            for (let i = startIndex; i < endIndex && i < allProducts.length; i++) {
+                allProducts[i].style.display = "block";
+            }
+
+            updateActivePage(pageNumber);
+        }
+
+        function updateActivePage(activePage) {
+            const pageLinks = document.querySelectorAll(".pagination .page-link");
+            pageLinks.forEach((link, index) => {
+                link.parentNode.classList.remove("active");
+                if (index === activePage) {
+                    link.parentNode.classList.add("active");
+                }
+            });
+
+            currentPage = activePage;
+
+            updateButtonStates();
+        }
+
+        function updateButtonStates() {
+            if (currentPage === 1) {
+                prevBtn.classList.add("disabled");
+            } else {
+                prevBtn.classList.remove("disabled");
+            }
+
+            if (currentPage === totalPages) {
+                nextBtn.classList.add("disabled");
+            } else {
+                nextBtn.classList.remove("disabled");
+            }
+        }
     })
     .catch(error => {
         console.error('Fetch error happened:', error);
