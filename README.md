@@ -1,4 +1,4 @@
-# WM_1_Assignment_2
+# Web and Mobile I -- Assignment 2
 
 
 Overview
