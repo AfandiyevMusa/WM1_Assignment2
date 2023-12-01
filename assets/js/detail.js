@@ -15,7 +15,7 @@ const imagesHTML = allImagesArray.map((image, index) => `
 cardRow.innerHTML = `
     <div class="col-sm-12 col-md-6 col-lg-6">
         <div class="back">
-            <a href="./home.html">
+            <a href="./index.html">
                 <i class="fa-solid fa-house"></i>
             </a>
         </div>

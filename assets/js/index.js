@@ -253,7 +253,7 @@ fetch(apiUrl)
                     category: category
                 };
 
-                console.log(productData);
+                // console.log(productData);
                 localStorage.setItem('selectedProduct', JSON.stringify(productData));
 
                 window.location.href = 'detail.html';
